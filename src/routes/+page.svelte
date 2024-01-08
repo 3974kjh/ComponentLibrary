@@ -1,7 +1,8 @@
 <script lang="ts">
+    import { onMount } from "svelte";
+    import { goto } from "$app/navigation";
 
+    onMount(() => {
+        goto("/login");
+    });
 </script>
-
-<h1>home</h1>
-
-<p>this is the home page.</p>

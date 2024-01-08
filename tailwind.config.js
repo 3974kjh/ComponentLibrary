@@ -1,8 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+import colors from 'tailwindcss/colors'
+
 export default {
-    content: ['./src/**/*.{html,js,svelte,ts}'],
-    theme: {
-      extend: {}
+  content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/svelte-ux/**/*.{svelte,js}'],
+  theme: {
+    extend: {
+      colors: {
+        accent: colors.blue,
+      },
     },
-    plugins: []
-  };
+  },
+  plugins: [require('svelte-ux/plugins/tailwind.cjs')],
+}

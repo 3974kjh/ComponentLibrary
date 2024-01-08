@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { TextField, Button, Tilt, Shine } from 'svelte-ux';
-	import { goto } from '$app/navigation';
-	import { tokenValue } from '../../stores';
-	import toast from 'svelte-french-toast';
+	import { enhance } from "$app/forms";
+	import { TextField, Button, Tilt, Shine, Icon } from "svelte-ux";
+	import { goto } from "$app/navigation";
+	import { tokenValue } from "../../stores";
+	import toast from "svelte-french-toast";
 
 	// 입력한 ID
 	let inputId: string;
@@ -11,20 +11,26 @@
 	// 입력한 암호
 	let inputPw: string;
 
-	const successMsg: string = '로그인에 성공했습니다.';
-	const errorMsg: string = '로그인에 실패했습니다.';
+	const successMsg: string = "로그인에 성공했습니다.";
+	const errorMsg: string = "로그인에 실패했습니다.";
 
 	/**
 	 * 로그인 custom enhance 함수 정의
 	 * @param param0
 	 */
-	const loginEnhanceCustom = ({ formElement, formData, action, cancel, submitter }) => {
+	const loginEnhanceCustom = ({
+		formElement,
+		formData,
+		action,
+		cancel,
+		submitter,
+	}) => {
 		return async ({ result, update }) => {
-			// 로그인 결과 값에 jwt 토큰값이 있는 경우 store에 저장 및 /hippo 경로로 이동
+			// 로그인 결과 값에 jwt 토큰값이 있는 경우 store에 저장 및 /main 경로로 이동
 			if (!!result.data == true) {
 				toast.success(successMsg, { duration: 800 });
 				tokenValue.set(result.data);
-				goto('/hippo');
+				goto("/main");
 			} else {
 				toast.error(errorMsg, { duration: 800 });
 			}
@@ -36,19 +42,21 @@
 	<Shine>
 		<div class="flex w-[15rem] items-center justify-center content-center gap-6">
 			<Tilt class="hover:scale-110 transition duration-500 px-5" setBrightness>
-				<img src="./images/Hippo2_Icon.png" alt="left" class="transition ease-out" />
+				<p class="text-9xl">
+					LIVRARY
+				</p>
 			</Tilt>
 		</div>
 	</Shine>
 	<form method="POST" action="?/login" use:enhance={loginEnhanceCustom}>
-		<div class="grid grid-rows-2 gap-[10px] w-1/2">
+		<div class="grid grid-rows-2">
 			<div class="flex items-center justify-center relative">
 				<TextField
 					class="flex w-full items-center"
 					placeholder="아이디 입력"
 					name="USID"
 					,
-					classes={{ container: 'bg-sky-50 p-1 font-bold w-[20rem]' }}
+					classes={{ container: "bg-sky-50 p-1 font-bold w-[20rem]" }}
 					bind:value={inputId}
 				>
 					<div slot="prepend">
@@ -71,7 +79,7 @@
 					placeholder="비밀번호 입력"
 					name="PW"
 					,
-					classes={{ container: 'bg-sky-50 p-1 font-bold w-[20rem]' }}
+					classes={{ container: "bg-sky-50 p-1 font-bold w-[20rem]" }}
 					bind:value={inputPw}
 				>
 					<div slot="prepend">
